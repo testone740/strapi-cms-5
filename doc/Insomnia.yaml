@@ -1,0 +1,880 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Strapi
+meta:
+  id: wrk_ddb4693e75444f038ee4bbbff6111a0b
+  created: 1782137817851
+  modified: 1782171648064
+  description: ""
+collection:
+  - name: Note & Tag
+    meta:
+      id: fld_98b2fbaf99854023a1d03c7db21a8fb8
+      created: 1782160507447
+      modified: 1782161558508
+      sortKey: -1782160552663
+      description: ""
+    children:
+      - url: http://localhost:1337/api/notes
+        name: Notes
+        meta:
+          id: req_040b34b74b57429288ee64794d22bea4
+          created: 1782137833238
+          modified: 1782160520296
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511690
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Note
+        meta:
+          id: req_a7d48477029d49678e3c12e1c103d98d
+          created: 1782137939259
+          modified: 1782169227059
+          isPrivate: false
+          description: curl -s "http://localhost:1337/api/notes"
+          sortKey: -1782160511715
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query Note($documentId: ID!) {\n  note(documentId: $documentId)
+            {\n    documentId\n    title\n    content\n    tags
+            {\n      name\n      slug\n    }\n  }\n}","operationName":"Note","variables":"{\n  \"documentId\":
+            \"ax0wugxqcvuehtjq0ja7l4qt\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Notes
+        meta:
+          id: req_47d40b4d8c8842928b1fc19e0fe19451
+          created: 1782138024542
+          modified: 1782169764641
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511740
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query ActiveNotes {\n  notes(sort: [\"pinned:desc\",
+            \"updatedAt:desc\"])
+            {\n    documentId\n    title\n    pinned\n\t\tarchived\n\t\texcerpt\n    tags
+            {\n      name\n      slug\n      color\n    }\n  }\n}","operationName":"ActiveNotes"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/api/notes?filters[archived][$eq]=true
+        name: ArchivedNotes
+        meta:
+          id: req_8d03734546b347efaf67611c885c3d23
+          created: 1782138743457
+          modified: 1782160521709
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511677.5
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/api/note?filters[archived][$eq]=true
+        name: ArchivedNote
+        meta:
+          id: req_7eb671c760b54145b4bd670e8525efc7
+          created: 1782138913863
+          modified: 1782160523404
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511671.25
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: ComputedNoteFields
+        meta:
+          id: req_a167992817a14cc68a36a86add0a5928
+          created: 1782148589970
+          modified: 1782169676383
+          isPrivate: false
+          description: >-
+            curl --request POST \
+              --url http://localhost:1337/graphql \
+              --header 'Content-Type: application/json' \
+              --data '{"query":"query ComputedNoteFields {\n  notes(pagination: { pageSize: 3 }) {\n    title\n    wordCount\n    readingTime\n    excerpt(length: 100)\n  }\n}","operationName":"ComputedNoteFields"}'
+          sortKey: -1782160511702.5
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query ComputedFields {\n  notes(pagination: { pageSize: 3 })
+            {\n    title\n    wordCount\n    readingTime\n    excerpt(length:
+            60)\n  }\n}","operationName":"ComputedFields"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: NoteStats (Custom)
+        meta:
+          id: req_771353304b284fb7b62fb8fa6842970e
+          created: 1782168510019
+          modified: 1782169891980
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511727.5
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query NoteStats {\n  noteStats
+            {\n    total\n    pinned\n    archived\n    byTag
+            {\n      slug\n      name\n      count\n    }\n  }\n}","operationName":"NoteStats"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Tags
+        meta:
+          id: req_a9c4a6e863f94906a726ba2e9ae395b7
+          created: 1782169274226
+          modified: 1782169434950
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511696.25
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query Tags {\n  tags(sort: [\"name:asc\"])
+            {\n    documentId\n    name\n    slug\n    color\n  }\n}","operationName":"Tags"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: CreateTag
+        meta:
+          id: req_278833ae908a47238848126fba71958d
+          created: 1782169339035
+          modified: 1782169478270
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511693.125
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation CreateTag($data: TagInput!) {\n  createTag(data:
+            $data)
+            {\n    name\n\t\tslug\n\t\tcolor\n  }\n}","operationName":"CreateTag","variables":"{\n  \"data\":
+            {\n    \"name\": \"Travel\",\n    \"slug\": \"red\",\n    \"color\":
+            \"red\"\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: CreateNote
+        meta:
+          id: req_8a9c3f020d014e3991546b626cdc01bc
+          created: 1782169495938
+          modified: 1782169507680
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511699.375
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation CreateNote($data: NoteInput!) {\n  createNote(data:
+            $data)
+            {\n    documentId\n    title\n  }\n}","operationName":"CreateNote","variables":"{\n  \"data\":
+            {\n    \"title\": \"Testing from the Sandbox\",\n    \"content\":
+            \"Hello from Apollo Sandbox.\\n\\nA second
+            paragraph.\",\n    \"pinned\": false,\n    \"archived\":
+            false,\n    \"tags\": []\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Search_Notes_By_Title (Custom)
+        meta:
+          id: req_9ca9a1248d674681bf4c40c627e6d5ce
+          created: 1782169725506
+          modified: 1782169876085
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511721.25
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query SearchNotes($q: String!) {\n  searchNotes(query: $q)
+            {\n    documentId\n    title\n    excerpt(length:
+            80)\n  }\n}","operationName":"SearchNotes","variables":"{\n\t\"q\":
+            \"Testing\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: NotesByTag (Custom)
+        meta:
+          id: req_9246b99e4c3d4f4db2a57030701a2477
+          created: 1782169915140
+          modified: 1782169924654
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511724.375
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query NotesByTag($slug: String!) {\n  notesByTag(slug: $slug)
+            {\n    documentId\n    title\n    pinned\n  }\n}","operationName":"NotesByTag","variables":"{
+            \"slug\": \"work\" }"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: TogglePin (Custom)
+        meta:
+          id: req_64a7fbca048b4199884bcb49093e0f19
+          created: 1782169980527
+          modified: 1782170342006
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511697.8125
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation TogglePin($documentId: ID!) {\n  togglePin(documentId:
+            $documentId)
+            {\n    documentId\n\t\ttitle\n    pinned\n  }\n}","operationName":"TogglePin","variables":"{\n\t\"documentId\":
+            \"y00cmg4c9z8g712vd53bgx9c\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Archive_Note (Custom)
+        meta:
+          id: req_0600ff9d2e9a449dacdd7f37c46248fd
+          created: 1782170263062
+          modified: 1782170334714
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511697.0312
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation ArchiveNote($documentId: ID!)
+            {\n  archiveNote(documentId: $documentId)
+            {\n    documentId\n    archived\n    pinned\n  }\n}","operationName":"ArchiveNote","variables":"{\n\t\"documentId\":
+            \"y00cmg4c9z8g712vd53bgx9c\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Duplicate_Note (Custom)
+        meta:
+          id: req_36e66a44cb054c6e8aa5248dc9225962
+          created: 1782170351078
+          modified: 1782170368650
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511696.6406
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation DuplicateNote($documentId: ID!)
+            {\n  duplicateNote(documentId: $documentId)
+            {\n    documentId\n    title\n    tags
+            {\n      name\n    }\n  }\n}","operationName":"DuplicateNote","variables":"{\n\t\"documentId\":
+            \"y00cmg4c9z8g712vd53bgx9c\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Forbidden_Query
+        meta:
+          id: req_480268f8c0f24c8dbecdea9485775e00
+          created: 1782170504279
+          modified: 1782170516068
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511691.5625
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query {\n  notes(filters: { archived: { eq: true } })
+            {\n    title\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: OK_Query
+        meta:
+          id: req_b22bafa08979456797e27568f4e28e0c
+          created: 1782170532315
+          modified: 1782170536690
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511690.7812
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query {\n  notes {\n    title\n    archived\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Not_Found_Note
+        meta:
+          id: req_b6d06461a94b42768a3baed5185100fa
+          created: 1782170590303
+          modified: 1782170661863
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511690.3906
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query F($id: ID!) {\n  note(documentId: $id)
+            {\n    documentId\n    title\n    archived\n  }\n}","operationName":"F","variables":"{\n\t\"id\":
+            \"y00cmg4c9z8g712vd53bgx9c\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Paged_Notes
+        meta:
+          id: req_1b66ff9be8364c32ad9e9aec59efd839
+          created: 1782170676095
+          modified: 1782170734583
+          isPrivate: false
+          description: ""
+          sortKey: -1782160511690.1953
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query {\n  notes(pagination: { pageSize: 100 })
+            {\n    documentId\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Introspection
+    meta:
+      id: fld_2efeed57c6a04480b66153f64496c182
+      created: 1782160552563
+      modified: 1782160552563
+      sortKey: -1782160552563
+      description: ""
+    children:
+      - url: http://localhost:1337/graphql
+        name: TagCount
+        meta:
+          id: req_037b2bb7e6134085a3b87c2e84c715ef
+          created: 1782160572253
+          modified: 1782161825457
+          isPrivate: false
+          description: >-
+            curl --request POST \
+              --url http://localhost:1337/graphql \
+              --header 'Content-Type: application/json' \
+              --data '{"query":"query PrivateReference {\n  note: __type(name: \"Note\") {\n    fields {\n      name\n    }\n  }\n  filter: __type(name: \"NoteFiltersInput\") {\n    inputFields {\n      name\n    }\n  }\n  input: __type(name: \"NoteInput\") {\n    inputFields {\n      name\n    }\n  }\n}","operationName":"PrivateReference"}'
+          sortKey: -1782160575959
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query TagCount {\n\t__type(name: \"TagCount\") {\n    fields
+            {\n      name\n    }\n  }\n}","operationName":"TagCount"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Inspect_Note
+        meta:
+          id: req_652efff8a1804197a624859437b9c2dd
+          created: 1782161310429
+          modified: 1782161762536
+          isPrivate: false
+          description: ""
+          sortKey: -1782160576059
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query PrivateReference {\n  note: __type(name: \"Note\")
+            {\n    fields {\n      name\n    }\n  }\n \tnoteFiltersInput:
+            __type(name: \"NoteFiltersInput\") {\n    inputFields
+            {\n      name\n    }\n  }\n  noteInput: __type(name: \"NoteInput\")
+            {\n    inputFields
+            {\n      name\n    }\n  }\n}","operationName":"PrivateReference"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Article
+    meta:
+      id: fld_3944c36d0349499ca2afb4b8f2de1737
+      created: 1782160761639
+      modified: 1782160761639
+      sortKey: -1782160761639
+      description: ""
+    children:
+      - url: http://localhost:1337/graphql
+        name: Articles
+        meta:
+          id: req_edd8f0f4f3904d4e9ad2ae735e85e873
+          created: 1782160776085
+          modified: 1782161470438
+          isPrivate: false
+          description: ""
+          sortKey: -1782160778291
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query Articles {\n  articles
+            {\n    documentId\n    title\n    description\n    slug\n    publishedAt\n  }\n}","operationName":"Articles"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Article
+        meta:
+          id: req_1c60903871a54ad99832c01d03f8f50c
+          created: 1782160782235
+          modified: 1782160889507
+          isPrivate: false
+          description: ""
+          sortKey: -1782160677125
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query Article($documentId: ID!) {\n  article(documentId:
+            $documentId)
+            {\n    documentId\n    title\n    description\n    slug\n    author
+            { name }\n    category { name
+            }\n  }\n}","operationName":"Article","variables":"{\n\t\"documentId\":
+            \"h8y9z4jpvpfqlxcgt3aig8eo\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: ArticlesWithRelations
+        meta:
+          id: req_82ab155f935b4ef28b842745a813a4e7
+          created: 1782160817042
+          modified: 1782160823244
+          isPrivate: false
+          description: ""
+          sortKey: -1782160727708
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query ArticlesWithRelations {\n  articles
+            {\n    title\n    author
+            {\n      name\n      email\n    }\n    category
+            {\n      name\n      slug\n    }\n  }\n}","operationName":"ArticlesWithRelations"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: FilteredArticles
+        meta:
+          id: req_140031d3fa5e43bea5953154d03d876d
+          created: 1782160836478
+          modified: 1782160838338
+          isPrivate: false
+          description: ""
+          sortKey: -1782160702416.5
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query FilteredArticles {\n  articles(filters: { title: {
+            containsi: \"internet\" } })
+            {\n    documentId\n    title\n  }\n}","operationName":"FilteredArticles"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: NewsArticles
+        meta:
+          id: req_70d90c9f546d43ce9a99ce738cb80efe
+          created: 1782160851100
+          modified: 1782160852783
+          isPrivate: false
+          description: ""
+          sortKey: -1782160689770.75
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query NewsArticles {\n  articles(filters: { category: { slug: {
+            eq: \"news\" } } }) {\n    documentId\n    title\n    category {
+            name }\n  }\n}","operationName":"NewsArticles"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: PagedSortedArticles
+        meta:
+          id: req_9d2d0b1764cf44f282cdec453868b93b
+          created: 1782160864346
+          modified: 1782161043465
+          isPrivate: false
+          description: ""
+          sortKey: -1782160683447.875
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query PagedSortedArticles {\n  articles(sort:
+            \"publishedAt:desc\", pagination: { page: 1, pageSize: 10 })
+            {\n    documentId\n    title\n\t\tpublishedAt\n  }\n}","operationName":"PagedSortedArticles"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: CreateArticle
+        meta:
+          id: req_02adf78cfacb4c6eaaf485c0de8685c5
+          created: 1782160902939
+          modified: 1782160949112
+          isPrivate: false
+          description: ""
+          sortKey: -1782160651833.5
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation CreateArticle($data: ArticleInput!)
+            {\n  createArticle(data: $data)
+            {\n    documentId\n    title\n  }\n}","operationName":"CreateArticle","variables":"{\n  \"data\":
+            {\n    \"title\": \"Hello from Apollo
+            Sandbox\",\n    \"description\": \"A short article created via
+            GraphQL.\",\n    \"slug\": \"hello-from-apollo-sandbox\"\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: UpdateArticle
+        meta:
+          id: req_e3a157816bca427495d859fb6ba76c19
+          created: 1782160921891
+          modified: 1782160980520
+          isPrivate: false
+          description: ""
+          sortKey: -1782160639187.75
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation UpdateArticle($documentId: ID!, $data: ArticleInput!)
+            {\n  updateArticle(documentId: $documentId, data: $data)
+            {\n    documentId\n    title\n  }\n}","operationName":"UpdateArticle","variables":"{\n\t\"documentId\":
+            \"x5wzjai2ce0osu2ypdhstsy0\",\n\t\"data\": {\n\t\t\"title\":
+            \"Edited title\"\n\t}\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: DeleteArticle
+        meta:
+          id: req_c7b80f96d73b4faa9b49ca14485e3ee3
+          created: 1782160930176
+          modified: 1782161126620
+          isPrivate: false
+          description: ""
+          sortKey: -1782160632864.875
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation DeleteArticle($documentId: ID!)
+            {\n  deleteArticle(documentId: $documentId)
+            {\n    documentId\n  }\n}","operationName":"DeleteArticle","variables":"{\n\t\"documentId\":
+            \"pbtru7dscasyz24ht8jr3x0y\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: ArticlesWithWordCount (Custom)
+        meta:
+          id: req_4b47b87f67fc4a63be944f6736ff8b36
+          created: 1782161172207
+          modified: 1782161179828
+          isPrivate: false
+          description: ""
+          sortKey: -1782160632764.875
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query ArticlesWithWordCount {\n  articles
+            {\n    title\n    description\n    wordCount\n  }\n}","operationName":"ArticlesWithWordCount"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: SearchArticles (Custom)
+        meta:
+          id: req_ca7ce092c75246599cb49e439e720f91
+          created: 1782161201085
+          modified: 1782161208521
+          isPrivate: false
+          description: ""
+          sortKey: -1782160604361.9375
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query SearchArticles($q: String!) {\n  searchArticles(q: $q)
+            {\n    documentId\n    title\n    wordCount\n  }\n}","operationName":"SearchArticles","variables":"{
+            \"q\": \"internet\" }"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_5bd40a5664ed9ff46282d11a91e1d6c78df44039
+    created: 1782137817864
+    modified: 1782137817864
+environments:
+  name: Base Environment
+  meta:
+    id: env_5bd40a5664ed9ff46282d11a91e1d6c78df44039
+    created: 1782137817860
+    modified: 1782137817860
+    isPrivate: false
