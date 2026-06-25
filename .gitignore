@@ -44,7 +44,7 @@ $RECYCLE.BIN/
 *.iso
 *.jar
 *.rar
-*.tar
+# *.tar
 *.zip
 *.com
 *.class
