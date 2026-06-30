@@ -26,6 +26,20 @@ export default function queries({
           t.nonNull.list.nonNull.field('byTag', { type: 'TagCount' });
         },
       }),
+      nexus.objectType({
+        name: 'MyNotesUser',
+        definition(t) {
+          t.nonNull.id('id');
+          t.nonNull.string('username');
+        },
+      }),
+      nexus.objectType({
+        name: 'MyNotesPayload',
+        definition(t) {
+          t.nonNull.field('user', { type: 'MyNotesUser' });
+          t.nonNull.list.nonNull.field('notes', { type: 'Note' });
+        },
+      }),
       nexus.extendType({
         type: 'Query',
         definition(t) {
@@ -53,8 +67,14 @@ export default function queries({
                 query,
                 includeArchived,
               }: { query: string; includeArchived: boolean },
+              ctx: any,
             ) {
-              const where: any = { title: { $containsi: query } };
+              const user = ctx?.state?.user;
+              if (!user?.id) return [];
+              const where: any = {
+                title: { $containsi: query },
+                owner: { id: user.id },
+              };
               if (!includeArchived) where.archived = false;
               return strapi.documents('api::note.note').findMany({
                 filters: where,
@@ -66,17 +86,23 @@ export default function queries({
 
           t.nonNull.field('noteStats', {
             type: 'NoteStats',
-            async resolve() {
+            async resolve(_parent: unknown, _args: unknown, ctx: any) {
+              const user = ctx?.state?.user;
+              if (!user?.id)
+                return { total: 0, pinned: 0, archived: 0, byTag: [] };
+              const owner = { id: user.id };
               const [total, pinned, archived, tags] = await Promise.all([
-                strapi.documents('api::note.note').count({}),
+                strapi
+                  .documents('api::note.note')
+                  .count({ filters: { owner } }),
                 strapi.documents('api::note.note').count({
-                  filters: { pinned: true },
+                  filters: { pinned: true, owner },
                 }),
                 strapi.documents('api::note.note').count({
-                  filters: { archived: true },
+                  filters: { archived: true, owner },
                 }),
                 strapi.documents('api::tag.tag').findMany({
-                  populate: ['notes'],
+                  populate: { notes: { filters: { owner } } },
                   sort: ['name:asc'],
                 }),
               ]);
@@ -98,22 +124,60 @@ export default function queries({
           t.list.field('notesByTag', {
             type: nexus.nonNull('Note'),
             args: { slug: nexus.nonNull(nexus.stringArg()) },
-            async resolve(_parent: unknown, { slug }: { slug: string }) {
+            async resolve(
+              _parent: unknown,
+              { slug }: { slug: string },
+              ctx: any,
+            ) {
+              const user = ctx?.state?.user;
+              if (!user?.id) return [];
               return strapi.documents('api::note.note').findMany({
-                filters: { archived: false, tags: { slug: { $eq: slug } } },
+                filters: {
+                  archived: false,
+                  tags: { slug: { $eq: slug } },
+                  owner: { id: user.id },
+                },
                 populate: ['tags'],
                 sort: ['pinned:desc', 'updatedAt:desc'],
               });
+            },
+          });
+
+          t.field('myNotes', {
+            type: nexus.nonNull('MyNotesPayload'),
+            async resolve(_parent: unknown, _args: unknown, ctx: any) {
+              const user = ctx?.state?.user;
+              if (!user?.id) {
+                // Should never reach here because of the `auth.scope` config below,
+                // but a tutorial-grade fallback. Return an empty payload shape that
+                // the frontend can render without special cases.
+                return { user: { id: 0, username: '' }, notes: [] };
+              }
+              const notes = await strapi.documents('api::note.note').findMany({
+                filters: { owner: { id: user.id } },
+                sort: ['pinned:desc', 'updatedAt:desc'],
+                populate: ['tags'],
+              });
+              return {
+                user: { id: user.id, username: user.username },
+                notes,
+              };
             },
           });
         },
       }),
     ],
     resolversConfig: {
+      // 'Query.searchArticles': { auth: false },
+      // 'Query.searchNotes': { auth: false },
+      // 'Query.noteStats': { auth: false },
+      // 'Query.notesByTag': { auth: false },
+
       'Query.searchArticles': { auth: false },
-      'Query.searchNotes': { auth: false },
-      'Query.noteStats': { auth: false },
-      'Query.notesByTag': { auth: false },
+      'Query.searchNotes': { auth: { scope: ['api::note.note.find'] } },
+      'Query.noteStats': { auth: { scope: ['api::note.note.find'] } },
+      'Query.notesByTag': { auth: { scope: ['api::note.note.find'] } },
+      'Query.myNotes': { auth: { scope: ['api::note.note.find'] } },
     },
   };
 }

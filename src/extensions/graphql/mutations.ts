@@ -79,9 +79,13 @@ export default function mutations({
       }),
     ],
     resolversConfig: {
-      'Mutation.togglePin': { auth: false },
-      'Mutation.archiveNote': { auth: false },
-      'Mutation.duplicateNote': { auth: false },
+      // 'Mutation.togglePin': { auth: false },
+      // 'Mutation.archiveNote': { auth: false },
+      // 'Mutation.duplicateNote': { auth: false },
+
+      'Mutation.togglePin': { auth: { scope: ['api::note.note.update'] } },
+      'Mutation.archiveNote': { auth: { scope: ['api::note.note.update'] } },
+      'Mutation.duplicateNote': { auth: { scope: ['api::note.note.create'] } },
     },
   };
 }

@@ -398,11 +398,11 @@ collection:
             store: true
           rebuildPath: true
       - url: http://localhost:1337/graphql
-        name: Forbidden_Query
+        name: Archived_Notes (Custom)
         meta:
           id: req_480268f8c0f24c8dbecdea9485775e00
           created: 1782170504279
-          modified: 1782170516068
+          modified: 1782334340185
           isPrivate: false
           description: ""
           sortKey: -1782160511691.5625
@@ -857,6 +857,461 @@ collection:
         headers:
           - name: Content-Type
             value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: User
+    meta:
+      id: fld_0a7982016d00417084744f7489459f32
+      created: 1782411161952
+      modified: 1782411161952
+      sortKey: -1782411161952
+      description: ""
+    children:
+      - url: http://localhost:1337/graphql
+        name: Register_User
+        meta:
+          id: req_9e1c9586243444f7b3894a493ed617a5
+          created: 1782411261265
+          modified: 1782834207749
+          isPrivate: false
+          description: ""
+          sortKey: -1782411263853
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation Register($input: UsersPermissionsRegisterInput!)
+            {\n  register(input: $input) {\n    jwt\n    user
+            {\n      username\n      email\n    }\n  }\n}","operationName":"Register","variables":"{\n\t\"input\":
+            {\n\t\t\"username\": \"testuser\",\n\t\t\"email\":
+            \"testuser@dev.com\",\n\t\t\"password\": \"testuser\"\n\t}\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Login_User1
+        meta:
+          id: req_b92e5d33970d44888abdc0ca43c44e26
+          created: 1782411488222
+          modified: 1782831647530
+          isPrivate: false
+          description: ""
+          sortKey: -1782379953157.75
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation Login($input: UsersPermissionsLoginInput!)
+            {\n  login(input: $input) {\n    jwt\n    user
+            {\n      username\n      email\n    }\n  }\n}","operationName":"Login","variables":"{\n  \"input\":
+            {\n    \"identifier\": \"testuser\",\n    \"password\":
+            \"testuser\",\n    \"provider\": \"local\"\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: AllUsers
+        meta:
+          id: req_5f75398de4324451a68cdc88ce238949
+          created: 1782829708268
+          modified: 1782832372792
+          isPrivate: false
+          description: >
+            Required Config
+
+
+            Open http://localhost:1337/admin → Settings → Users & Permissions
+            Plugin → Roles → Authenticated → expand Users-permissions → User →
+            tick find. Save.
+
+
+            Note: This is NOT the correct solution since any auth user can fetch
+            all users
+          sortKey: -1782348642462.5
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query AllUsers {\n  usersPermissionsUsers
+            {\n    documentId\n    username\n    email\n  }\n}","operationName":"AllUsers"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          disabled: true
+          token: Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyNDExODc1LCJleHAiOjE3ODUwMDM4NzV9.fHTQ-MzmfA8Ok5LyfIH83soU0TNHAd331Wz_5OhoobQ
+          prefix: ""
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Login_User2
+        meta:
+          id: req_cf3ea6c5cb4d4ca9b6785cbd7cdb01b1
+          created: 1782831652573
+          modified: 1782831661133
+          isPrivate: false
+          description: ""
+          sortKey: -1782364297810.125
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation Login($input: UsersPermissionsLoginInput!)
+            {\n  login(input: $input) {\n    jwt\n    user
+            {\n      username\n      email\n    }\n  }\n}","operationName":"Login","variables":"{\n\t\"input\":
+            {\n\t\t\"identifier\": \"testuser2\",\n\t\t\"password\":
+            \"testuser2\",\n\t\t\"provider\": \"local\"\n\t}\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Authorized Note
+    meta:
+      id: fld_17a6d0ffd42743ecbf80e92319eacd30
+      created: 1782412270021
+      modified: 1782412270021
+      sortKey: -1782412270021
+      description: ""
+    children:
+      - url: http://localhost:1337/graphql
+        name: User1_Notes
+        meta:
+          id: req_0a0c16f8865849b680dc7fc4a7253b04
+          created: 1782830607008
+          modified: 1782834179398
+          isPrivate: false
+          description: ""
+          sortKey: -1782830607008
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query Notes {\n  notes
+            {\n    documentId\n    title\n  }\n}","operationName":"Notes"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: Broken_Notes
+        meta:
+          id: req_5118b04691d2494dadf10be8446ad7c9
+          created: 1782830782972
+          modified: 1782832407463
+          isPrivate: false
+          description: >
+            To fix the broken query:
+
+
+            Open http://localhost:1337/admin → Settings → Users & Permissions
+            Plugin → Roles → Authenticated → expand Users-permissions → User →
+            tick find. Save.
+
+
+
+            Note: This is NOT the correct solution since any authenticated user
+            can fetch all users
+          sortKey: -1782621446946
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query BrokenMyNotes($username: String!) {\n  notes(filters: {
+            owner: { username: { eq: $username } } })
+            {\n    documentId\n    title\n  }\n}","operationName":"BrokenMyNotes","variables":"{
+            \"username\": \"testuser\" }"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: My_Notes
+        meta:
+          id: req_ff11183504f34df7b78328a480fa6e15
+          created: 1782831225928
+          modified: 1782832413434
+          isPrivate: false
+          description: >
+            To fix the broken query:
+
+
+            Open http://localhost:1337/admin → Settings → Users & Permissions
+            Plugin → Roles → Authenticated → expand Users-permissions → User →
+            tick find. Save.
+
+
+
+            Note: This is NOT the correct solution since any authenticated user
+            can fetch all users
+          sortKey: -1782516866915
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query MyNotes {\n  myNotes {\n    user
+            {\n      id\n      username\n    }\n    notes
+            {\n      documentId\n      title\n      pinned\n    }\n  }\n}","operationName":"MyNotes"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyNDExODc1LCJleHAiOjE3ODUwMDM4NzV9.fHTQ-MzmfA8Ok5LyfIH83soU0TNHAd331Wz_5OhoobQ
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: TogglePin
+        meta:
+          id: req_240fe67db00040ceb1cd0e2515a52e70
+          created: 1782831715365
+          modified: 1782831949858
+          isPrivate: false
+          description: |
+            testuser1 JWT
+            Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyNDExODc1LCJleHAiOjE3ODUwMDM4NzV9.fHTQ-MzmfA8Ok5LyfIH83soU0TNHAd331Wz_5OhoobQ
+
+            Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+
+
+
+            testuser2 JWT
+            Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzgyODMxNjY0LCJleHAiOjE3ODU0MjM2NjR9.dFZ3tHmKSPmjSeH_pMNwI94siQNnnaZi1ou8jqstVTM
+          sortKey: -1782464576899.5
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation TogglePin($id: ID!) {\n  togglePin(documentId: $id)
+            {\n    documentId\n    pinned\n  }\n}","operationName":"TogglePin","variables":"{\n\t\"id\":
+            \"i02vqsqo7uxt1z3m7mwvlber\"\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: User2_Notes
+        meta:
+          id: req_afe1bc581eeb49d79d40ff6d56dcb966
+          created: 1782832336993
+          modified: 1782832580789
+          isPrivate: false
+          description: ""
+          sortKey: -1782726026977
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query Notes {\n  notes
+            {\n    documentId\n    title\n  }\n}","operationName":"Notes"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzgyODMxNjY0LCJleHAiOjE3ODU0MjM2NjR9.dFZ3tHmKSPmjSeH_pMNwI94siQNnnaZi1ou8jqstVTM
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: User1_Update_Note
+        meta:
+          id: req_70bd73e0db17420b878d00eeadc3d93b
+          created: 1782832458125
+          modified: 1782832829907
+          isPrivate: false
+          description: ""
+          sortKey: -1782817534504.125
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation UpdateNote($documentId: ID!, $data: NoteInput!)
+            {\n  updateNote(documentId: $documentId, data: $data)
+            {\n    documentId\n    title\n  }\n}","operationName":"UpdateNote","variables":"{\n\t\"documentId\":
+            \"i02vqsqo7uxt1z3m7mwvlber\",\n\t\"data\": {\n\t\t\"title\":
+            \"Updated by testuser\"\n\t}\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: User1_Search_Notes
+        meta:
+          id: req_9f24c5401f90407284c520765414b837
+          created: 1782832826911
+          modified: 1782832871428
+          isPrivate: false
+          description: ""
+          sortKey: -1782804462000.25
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query {\n  searchNotes(query: \"vaca\")
+            {\n    documentId\n    title\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: User1_NoteStats
+        meta:
+          id: req_18323e4997b943f7a26224a0314285ab
+          created: 1782832887538
+          modified: 1782832900807
+          isPrivate: false
+          description: ""
+          sortKey: -1782791389496.375
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query {\n  noteStats
+            {\n    total\n    pinned\n    archived\n    byTag
+            {\n      slug\n      name\n      count\n    }\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:1337/graphql
+        name: User1_NotesByTag
+        meta:
+          id: req_d8a01023f9e64a42a215430a3a8f3d99
+          created: 1782832910192
+          modified: 1782832913785
+          isPrivate: false
+          description: ""
+          sortKey: -1782784853244.4375
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query {\n  notesByTag(slug: \"ideas\")
+            {\n    documentId\n    title\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzgyODMwMzUwLCJleHAiOjE3ODU0MjIzNTB9.6NINuZIzcj7Hkz6KOUhX55Gne8gk0u_oEVr0zkddJRU
+            description: ""
+            disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true

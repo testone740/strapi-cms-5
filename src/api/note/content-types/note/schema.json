@@ -35,6 +35,12 @@
       "relation": "manyToMany",
       "target": "api::tag.tag",
       "inversedBy": "notes"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "notes"
     }
   }
 }

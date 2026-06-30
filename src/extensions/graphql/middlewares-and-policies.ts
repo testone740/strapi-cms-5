@@ -115,6 +115,12 @@ export default function middlewaresAndPolicies() {
           },
         ],
       },
+
+      // NEW: per-row ownership check on every Note write
+      'Mutation.updateNote': { policies: ['global::is-note-owner'] },
+      'Mutation.togglePin': { policies: ['global::is-note-owner'] },
+      'Mutation.archiveNote': { policies: ['global::is-note-owner'] },
+      'Mutation.duplicateNote': { policies: ['global::is-note-owner'] },
     },
   };
 }
